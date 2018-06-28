@@ -45,6 +45,7 @@ function lintusing(ex::Expr, ctx::LintContext)
         try
             eval(Main, ex)
             m = eval(Main, parse(path))
+        catch
         end
         t = typeof(m)
         if t == Module

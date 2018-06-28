@@ -109,11 +109,7 @@ Lint can pick them up and suppress version-dependent errors that are not reachab
 Examples:
 ```julia
 # lint won't complaint about missing `Base.Dates` in 0.3 or missing `Dates` in 0.4
-if VERSION < v"0.4-"
-    using Dates
-else
-    using Base.Dates
-end
+using Base.Dates
 ```
 
 ```julia
@@ -128,23 +124,14 @@ s = Symbol("end")
 
 ```julia
 # this will lint clean cross versions
-if VERSION < v"0.4-"
-    s = symbol("end")
-else
-    s = Symbol("end")
-end
+s = Symbol("end")
 ```
 
 You can directly test for version reachability by inserting lint-pragmas
 like so
 ```julia
-if VERSION >= v"0.4-"
-    @lintpragma("Info version 0.3")
-    @lintpragma("Info version 0.4.0-dev+1833")
-else
-    @lintpragma("Info version 0.3")
-    @lintpragma("Info version 0.4.0-dev+1833")
-end
+@lintpragma("Info version 0.3")
+@lintpragma("Info version 0.4.0-dev+1833")
 ```
 You will see line-by-line reachability in your output. See test/versions.jl
 for further examples.

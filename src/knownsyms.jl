@@ -21,6 +21,7 @@ function cacheknownsyms()
         ok = false
         try
             ok = isa(eval(Base, x), DataType)
+        catch
         end
         ok
     end)
@@ -28,6 +29,7 @@ function cacheknownsyms()
         ok = false
         try
             ok = isa(eval(Core, x), DataType)
+        catch
         end
         ok
     end)

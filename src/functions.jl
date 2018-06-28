@@ -256,6 +256,7 @@ function lintfunction(ex::Expr, ctx::LintContext; ctorType = Symbol(""), isstage
             elseif haskey(typeRHShints, s)
                 vi.typeactual = typeRHShints[s]
             end
+        catch
         end
     end
 
@@ -521,6 +522,7 @@ function lintfunctioncall(ex::Expr, ctx::LintContext; inthrow::Bool=false)
                     if typeof(dt) == DataType && dt <: Exception && !pragmaexists( "Ignore unthrown " * string(ex.args[1]), ctx)
                         msg(ctx, :W448, string(ex.args[1]) * " is an Exception but it is not enclosed in a throw()")
                     end
+                catch
                 end
             end
         end

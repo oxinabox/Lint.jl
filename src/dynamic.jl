@@ -10,6 +10,7 @@ function dynamic_imported_binding_type(sym)
                 if isa(eval(Main, sym), Type)
                     return :DataType
                 end
+            catch
             end
         end
         return :var

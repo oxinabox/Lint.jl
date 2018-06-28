@@ -225,6 +225,7 @@ function funcMatchesDeprecateInfo(sig, di::DeprecateInfo)
             ret = false
             try
                 ret = eval(:($s1 <: $s2))
+            catch
             end
             return ret
         elseif typeof(s1) == Expr && typeof(s2) == Expr && s1.head == s2.head && length(s1.args)==length(s2.args)

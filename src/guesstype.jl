@@ -23,6 +23,7 @@ function evaltype(ex)
     ret = Any
     try
         ret = eval(Main, ex)
+    catch
     end
     return isa(ret, DataType) ? ret : Any
 end
@@ -99,6 +100,7 @@ function guesstype(ex, ctx::LintContext)
                 tmp = x
                 try
                     tmp = eval(x)
+                catch
                 end
                 if typeof(tmp) == DataType || typeof(tmp) == (DataType,)
                     return tmp
@@ -134,6 +136,7 @@ function guesstype(ex, ctx::LintContext)
         end
         try
             return typeof(eval(ex))
+        catch
         end
         return Any
     end
@@ -278,6 +281,7 @@ function guesstype(ex, ctx::LintContext)
             else
                 return Array{elt, length(ex.args)-2}
             end
+        catch
         end
     end
 
@@ -331,6 +335,7 @@ function guesstype(ex, ctx::LintContext)
                     @lintpragma("Ignore unused _")
                     return Tuple{ntuple(_ -> Int, nd)...}
                 end
+            catch
             end
         end
         return Any
@@ -430,6 +435,7 @@ function guesstype(ex, ctx::LintContext)
                 else
                     return eletyp
                 end
+            catch
             end
             return Any
         elseif typeof(partyp) == (DataType,) # e.g. (Int,), (Int...,), (DataType,...)
